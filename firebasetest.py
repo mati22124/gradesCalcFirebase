@@ -7,26 +7,38 @@ from grades import grade
 school = grade()
 
 #Main
+print("""
+1. Login
+2. Signup
+""")
 
-ans=input("Are you a new user?[y/n]")
+ans=input("Enter your choice here: ")
+while True:
+    if ans == '1':
+        email = input("enter your email: ")
+        passwd = input("enter your password: ")
+        x = school.login(email, passwd)
+        if x==0:
+            break
+    elif ans == '2':
+        email = input("enter your email: ")
+        passwd = input("enter your password: ")
+        x = school.signup(email, passwd)
+        if x==0:
+            break
 
 
-if ans == 'n':
-    school.login("mayanktiku04@gmail.com", "mati22123")
-    print(school.user)
-    print("\n\n")
-    print(school.data)
-    print(str(school.sumPointsHave(0))+" / "+str(school.sumPointsOutOf(0)))
-    print(school.getGrade(0))
-    school.setInfo()
-    print("successfull")
-elif ans == 'y':
-    email = input("enter your email: ")
-    passwd = input("enter your password: ")
-    school.signup(email, passwd)
-    print(school.user)
-    print("\n\n")
-    print(school.data)
+print("""
+1. print classes w/ grade
+2. print classes w/o grade
+2. add class
+3. add assignment
+5. remove class
+6. remove grade
+7. calculate grade needed for a _
+8. calulate minimum grade needed to keep your current grade.
+""")
+
 # data = {
 #   "classes": [ #array of classes
 #     { #start of first class

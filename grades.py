@@ -15,17 +15,19 @@ class grade:
        # email = auth.get_account_info(login['idToken'])['users'][0]['email']p0
        # print(email)
             self.data = self.database.child("users/"+self.user['localId']).get(self.user['idToken']).val()["classes"]
+            return 0
         except TypeError:
             self.data = []
+            return 0
         except:
             print("Invalid email or password")
+            return 1
     
     def signup(self, email, password):
         try:
             self.auth.create_user_with_email_and_password(email, password)
-            ask=input("Do you want to login?[y/n]")
-            if ask=='y':
-                self.login(email, password)
+            x = self.login(email, password)
+            return x
         except: 
             print("Email already exists")
     
@@ -42,7 +44,6 @@ class grade:
             "name": name
         }
         self.data.append(classs)
-
     
     def addAssignment(self, classId, name = "Untitled", pointsHave = 0, pointsOutOf = 0, Category = "Unweighted", weight = 1):
         assignm = { 
@@ -58,6 +59,7 @@ class grade:
             self.data[classId]["assignments"] = [assignm]
         except:
             print("error smth happened wrong")
+
     def sumPointsHave(self, classId):
         sum = 0
         for i in self.data[classId]["assignments"]:
@@ -75,3 +77,4 @@ class grade:
             return round(self.sumPointsHave(classId)/self.sumPointsOutOf(classId)*100,2)
         else:
             return 0
+    
